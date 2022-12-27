@@ -129,8 +129,8 @@ def functionSelect(command_input, response):
     elif 'motionGet' == command_input:
         if OLED_connection:
             screen.screen_show(5,'MotionGet')
-        flask_app.modeselect('watchDog')
-
+        # flask_app.modeselect('watchDog')
+        flask_app.modeselect('readQR')
     elif 'stopCV' == command_input:
         flask_app.modeselect('none')
         switch.switch(1,0)

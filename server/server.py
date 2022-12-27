@@ -271,7 +271,7 @@ def  ap_thread():
 
 
 def run():
-    global direction_command, turn_command, pos_input, catch_input, cir_input, ultrasonicMode, FindLineMode, FindColorMode
+    global direction_command, turn_command, pos_input, catch_input, cir_input, ultrasonicMode, FindLineMode, FindColorMode, qrMode
     move.setup()
     findline.setup()
 
@@ -387,6 +387,10 @@ def run():
             fpv.WatchDog(1)
             tcpCliSock.send(('WatchDog').encode())
 
+        elif 'readQR' in data:
+            qrMode = 1
+            tcpCliSock.send(('readQR').encode())
+
         elif 'steady' in data:
             ultrasonicMode = 1
             tcpCliSock.send(('steady').encode())
@@ -401,6 +405,7 @@ def run():
             ultrasonicMode = 0
             FindLineMode   = 0
             FindColorMode  = 0
+            qrMode = 0
             tcpCliSock.send(('FunEnd').encode())
             move.motorStop()
             time.sleep(0.3)

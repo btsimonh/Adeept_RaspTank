@@ -98,6 +98,13 @@ class CVThread(threading.Thread):
         self.imgCV = imgInput
         self.resume()
 
+    # Display barcode and QR code location
+    def drawlines(im, points):
+        n = len(bbox)
+        for j in range(n):
+            cv2.line(im, tuple(bbox[j][0]), tuple(bbox[ (j+1) % n][0]), (255,0,0), 3)
+    
+
     def elementDraw(self,imgInput):
         if self.CVMode == 'none':
             pass
@@ -141,8 +148,19 @@ class CVThread(threading.Thread):
             if self.drawing:
                 cv2.rectangle(imgInput, (self.mov_x, self.mov_y), (self.mov_x + self.mov_w, self.mov_y + self.mov_h), (128, 255, 0), 1)
 
+        elif self.CVMode == 'readQR':
+            if self.drawing:
+                drawlines(imgInput, self.QRpoints)
+
         return imgInput
 
+    def readQR(self, imgInput):
+        detect = cv2.QRCodeDetector()
+        value, points, straight_qrcode = detect.detectAndDecode(img)
+        if len(value)>0:
+            print("Decoded Data : {}".format(value))        
+            self.QRpoints = points
+        self.pause()
 
     def watchDog(self, imgInput):
         timestamp = datetime.datetime.now()
@@ -347,6 +365,10 @@ class CVThread(threading.Thread):
             elif self.CVMode == 'watchDog':
                 self.CVThreading = 1
                 self.watchDog(self.imgCV)
+                self.CVThreading = 0
+            elif self.CVMode == 'QR':
+                self.CVThreading = 1
+                self.readQR(self.imgCV)
                 self.CVThreading = 0
             pass
 
