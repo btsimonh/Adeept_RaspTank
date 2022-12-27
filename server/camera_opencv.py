@@ -161,6 +161,7 @@ class CVThread(threading.Thread):
         if len(value)>0:
             print("Decoded Data : {}".format(value))        
             self.QRpoints = points
+            self.drawing = 1
         else:
             print('noQR')
         self.pause()
