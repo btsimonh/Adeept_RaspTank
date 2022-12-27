@@ -157,8 +157,7 @@ class CVThread(threading.Thread):
         elif self.CVMode == 'readQR':
             if self.drawing:
                 print('drawQR')
-                print(self.QRpoints)
-                self.drawlines(imgInput, self.QRpoints)
+                cv2.rectangle(imgInput, (self.barcodex, self.barcodey), (self.barcodex + self.barcodew, self.barcodey + self.barcodeh), (255, 0, 0), 5)
 
         return imgInput
 
@@ -166,6 +165,17 @@ class CVThread(threading.Thread):
         print('detectQR')
         barcodes = decode(imgInput)
         print(barcodes)
+        self.QRpoints = []
+        for barcode in barcodes:
+            # handling each barcode
+            (x, y, w, h) = barcode.rect
+            self.barcodex = x
+            self.barcodey = y
+            self.barcodew = w
+            self.barcodey = h
+            self.drawing = 1
+
+
         #detect = cv2.QRCodeDetector()
         #value, points, straight_qrcode = detect.detectAndDecode(imgInput)
         #if len(value)>0:
