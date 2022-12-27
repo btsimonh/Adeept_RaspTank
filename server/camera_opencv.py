@@ -163,7 +163,10 @@ class CVThread(threading.Thread):
 
     def readQR(self, imgInput):
         print('detectQR')
-        barcodes = decode(imgInput)
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        ret,binary = cv.threshold(img,0,25,cv.THRESH_BINARY)
+
+        barcodes = decode(binary)
         print(barcodes)
         #self.QRpoints = []
         for barcode in barcodes:
