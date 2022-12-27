@@ -155,11 +155,14 @@ class CVThread(threading.Thread):
         return imgInput
 
     def readQR(self, imgInput):
+        print('detectQR')
         detect = cv2.QRCodeDetector()
         value, points, straight_qrcode = detect.detectAndDecode(img)
         if len(value)>0:
             print("Decoded Data : {}".format(value))        
             self.QRpoints = points
+        else
+            print('noQR')
         self.pause()
 
     def watchDog(self, imgInput):
