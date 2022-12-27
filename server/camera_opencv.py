@@ -12,6 +12,7 @@ import time
 import threading
 import imutils
 import robotLight
+from pyzbar.pyzbar import decode
 
 led = robotLight.RobotLight()
 pid = PID.PID()
@@ -99,11 +100,15 @@ class CVThread(threading.Thread):
         self.resume()
 
     # Display barcode and QR code location
-    def drawlines(self, im, bbox):
-        n = len(bbox)
-        print("lines : {}".format(n))        
-        for j in range(n):
-            cv2.line(im, tuple(bbox[j][0]), tuple(bbox[ (j+1) % n][0]), (255,0,0), 3)
+    def drawlines(self, im, bboxes):
+        o = len(bboxes)
+        print("objects : {}".format(o))
+        for i in range(o):
+            bbox = bboxes[i];
+            n = len(bbox);
+            print("objects : {}".format(n))
+            for j in range(n):
+                cv2.line(im, tuple(bbox[j][0]), tuple(bbox[ (j+1) % n][0]), (255,0,0), 3)
     
 
     def elementDraw(self,imgInput):
@@ -159,15 +164,17 @@ class CVThread(threading.Thread):
 
     def readQR(self, imgInput):
         print('detectQR')
-        detect = cv2.QRCodeDetector()
-        value, points, straight_qrcode = detect.detectAndDecode(imgInput)
-        if len(value)>0:
-            print("Decoded Data : {}".format(value))        
-            print(points)
-            self.QRpoints = points
-            self.drawing = 1
-        else:
-            print('noQR')
+        barcodes = decode(imgInput)
+        print(barcodes)
+        #detect = cv2.QRCodeDetector()
+        #value, points, straight_qrcode = detect.detectAndDecode(imgInput)
+        #if len(value)>0:
+        #    print("Decoded Data : {}".format(value))        
+        #    print(points)
+        #    self.QRpoints = points
+        #    self.drawing = 1
+        #else:
+        #    print('noQR')
         self.pause()
 
     def watchDog(self, imgInput):
