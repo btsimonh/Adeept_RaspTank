@@ -165,14 +165,14 @@ class CVThread(threading.Thread):
         print('detectQR')
         barcodes = decode(imgInput)
         print(barcodes)
-        self.QRpoints = []
+        #self.QRpoints = []
         for barcode in barcodes:
             # handling each barcode
             (x, y, w, h) = barcode.rect
             self.barcodex = x
             self.barcodey = y
             self.barcodew = w
-            self.barcodey = h
+            self.barcodeh = h
             self.drawing = 1
 
 
