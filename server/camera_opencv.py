@@ -369,7 +369,7 @@ class CVThread(threading.Thread):
                 self.CVThreading = 1
                 self.watchDog(self.imgCV)
                 self.CVThreading = 0
-            elif self.CVMode == 'QR':
+            elif self.CVMode == 'readQR':
                 self.CVThreading = 1
                 self.readQR(self.imgCV)
                 self.CVThreading = 0
