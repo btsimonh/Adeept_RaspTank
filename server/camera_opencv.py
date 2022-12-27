@@ -152,7 +152,7 @@ class CVThread(threading.Thread):
         elif self.CVMode == 'readQR':
             if self.drawing:
                 print('drawQR')
-                drawlines(imgInput, self.QRpoints)
+                self.drawlines(imgInput, self.QRpoints)
 
         return imgInput
 
