@@ -157,7 +157,7 @@ class CVThread(threading.Thread):
     def readQR(self, imgInput):
         print('detectQR')
         detect = cv2.QRCodeDetector()
-        value, points, straight_qrcode = detect.detectAndDecode(img)
+        value, points, straight_qrcode = detect.detectAndDecode(imgInput)
         if len(value)>0:
             print("Decoded Data : {}".format(value))        
             self.QRpoints = points
