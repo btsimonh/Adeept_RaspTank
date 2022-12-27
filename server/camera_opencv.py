@@ -99,8 +99,9 @@ class CVThread(threading.Thread):
         self.resume()
 
     # Display barcode and QR code location
-    def drawlines(im, bbox):
+    def drawlines(self, im, bbox):
         n = len(bbox)
+        print("lines : {}".format(n))        
         for j in range(n):
             cv2.line(im, tuple(bbox[j][0]), tuple(bbox[ (j+1) % n][0]), (255,0,0), 3)
     
