@@ -155,10 +155,10 @@ class CVThread(threading.Thread):
                 cv2.rectangle(imgInput, (self.mov_x, self.mov_y), (self.mov_x + self.mov_w, self.mov_y + self.mov_h), (128, 255, 0), 1)
 
         elif self.CVMode == 'readQR':
-            #gray = cv2.cvtColor(imgInput, cv2.COLOR_BGR2GRAY)
-            #dst = cv2.equalizeHist(gray)
-            #ret,binary = cv2.threshold(dst,128,255,cv2.THRESH_BINARY)
-            #imgInput = binary
+            gray = cv2.cvtColor(imgInput, cv2.COLOR_BGR2GRAY)
+            dst = cv2.equalizeHist(gray)
+            ret,binary = cv2.threshold(dst,128,255,cv2.THRESH_BINARY)
+            imgInput = binary
 
             if self.drawing:
                 print('drawQR')
