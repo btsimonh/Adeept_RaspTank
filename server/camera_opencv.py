@@ -29,6 +29,7 @@ findLineError = 20
 
 ImgIsNone = 0
 
+
 colorUpper = np.array([44, 255, 255])
 colorLower = np.array([24, 100, 100])
 
